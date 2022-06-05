@@ -1,11 +1,12 @@
 <template>
-    <div style="margin-top:20px">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <el-form-item label="账号" prop="name">
-                <el-input v-model="ruleForm.name" style="width:30%"></el-input>
+    <div class="container-perInfo-out">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
+            class="demo-ruleForm container-perInfo">
+            <el-form-item label="账号" prop="name" style="margin-top:15px">
+                <el-input v-model="ruleForm.name" style="width:90%"></el-input>
             </el-form-item>
             <el-form-item label="密码" prop="pwd">
-                <el-input type="password" v-model="ruleForm.pwd" style="width:30%" @focus="focus" @blur="blur"
+                <el-input type="password" v-model="ruleForm.pwd" style="width:90%" @focus="focus" @blur="blur"
                     ref="per_pwd"></el-input>
             </el-form-item>
             <el-form-item label="性别" prop="sex">
@@ -15,13 +16,13 @@
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
-                <el-input v-model="ruleForm.email" style="width:30%"></el-input>
+                <el-input v-model="ruleForm.email" style="width:90%"></el-input>
             </el-form-item>
             <el-form-item label="电话" prop="phone">
-                <el-input v-model="ruleForm.phone" style="width:30%"></el-input>
+                <el-input v-model="ruleForm.phone" style="width:90%"></el-input>
             </el-form-item>
             <el-form-item label="简介" prop="info">
-                <el-input type="textarea" v-model="ruleForm.info" style="width:30%"></el-input>
+                <el-input type="textarea" v-model="ruleForm.info" style="width:90%"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
@@ -114,5 +115,24 @@ i {
     top: 2px;
     width: 24px;
     height: 24px;
+}
+
+.container-perInfo-out {
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+    background: linear-gradient(200deg, #e2e2e5, #e2e2e0);
+}
+
+.container-perInfo {
+    width: 40%;
+    /* border: 1px solid red; */
+    position: absolute;
+    transform: translate(-50%, -60%);
+    left: 50%;
+    top: 50%;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 45px #b7b6b6;
 }
 </style>

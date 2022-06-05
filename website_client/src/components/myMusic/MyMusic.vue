@@ -1,7 +1,6 @@
 <template>
     <div class="out-display">
         <div class="container">
-
             <div class="row clearfix">
                 <div class="col-md-12 column">
                     <div class="page-header">
@@ -11,7 +10,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row clearfix">
                 <div class="col-md-12 column">
                     <table class="table table-hover table-striped">
@@ -124,5 +122,27 @@ th {
     display: table-cell;
     /* 设置居中 */
     vertical-align: middle;
+}
+
+.out-display {
+    height: 100vh;
+    background: linear-gradient(200deg, #e2e2e5, #e2e2e0);
+}
+
+.out-display::before {
+    content: "";
+    display: table;
+}
+
+.container {
+    width: 80%;
+    margin-top: 20px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 45px #b7b6b6;
+}
+
+.page-header {
+    margin: 20px 0 20px;
 }
 </style>

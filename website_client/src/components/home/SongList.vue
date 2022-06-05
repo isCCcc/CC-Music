@@ -1,7 +1,6 @@
 <template>
     <div class="out-display">
         <div class="container">
-
             <div class="row clearfix">
                 <div class="col-md-12 column">
                     <div class="page-header">
@@ -11,7 +10,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row clearfix">
                 <div class="col-md-12 column">
                     <table class="table table-hover table-striped">
@@ -153,14 +151,22 @@ export default {
 
 <style scoped>
 .out-display {
+    min-height: 100vh;
     background: linear-gradient(200deg, #e2e2e5, #e2e2e0);
+}
+
+.out-display::before {
+    content: "";
+    display: table;
 }
 
 .container {
     /* border: 1px solid red; */
     vertical-align: middle;
     width: 950px;
-    /* margin-top: 30px; */
+    height: 95%;
+    margin-top: 20px;
+    border-radius: 30px;
     background-color: #fff;
     box-shadow: 0 12px 45px #b7b6b6;
 }
@@ -171,5 +177,9 @@ th {
     display: table-cell;
     /* 设置居中 */
     vertical-align: middle;
+}
+
+.page-header {
+    margin: 20px 0 20px;
 }
 </style>

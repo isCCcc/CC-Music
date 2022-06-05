@@ -54,8 +54,8 @@ export default {
 }
 
 .home {
-    background: linear-gradient(200deg, #afafb3, #e2e2e0);
+    background: linear-gradient(200deg, #afafb3, #afafb3);
     box-shadow: 0 12px 45px #b7b6b6;
-    border: 1px solid #99a9bf;
+    /* border: 1px solid #99a9bf; */
 }
 </style>

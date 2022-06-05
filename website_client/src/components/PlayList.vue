@@ -2,13 +2,11 @@
     <div class="container">
         <div class="play-list-out">
             <div class="play-list">
-                <!-- <div class="play-title" v-if="title">王心凌</div> -->
                 <ul class="play-body">
                     <li class="card-frame" v-for="(item, index) in singerList" :key="index">
                         <div class="card" @click="goAblum(item.id)">
                             <el-image class="card-img" fit="contain" :src="attachImageUrl(item.pic)" />
                             <div class="mask" @click="goAblum(item.id)">
-                                <!-- <yin-icon class="mask-icon" :icon="BOFANG"></yin-icon> -->
                                 <div class="mask-icon"></div>
                             </div>
                         </div>
@@ -24,21 +22,24 @@
 export default {
     inject: ['reload'],
     name: 'PlayList',
-    props: {
-        singerList: {
-            type: Array,
-            default: function () {
-                return []
-            }
+    data() {
+        return {
+            singerList: JSON.parse(localStorage.getItem('singerList')),
         }
     },
+    // props: {
+    // singerList: {
+    //     type: Array,
+    //     default: function () {
+    //         return []
+    //     }
+    // }
+    // },
     methods: {
         attachImageUrl(url) {
             return require("@/assets" + url)
-            // return require("@/assets/img/singerPic/pushu.jpg")
         },
         goAblum(id) {
-            // console.log(typeof (item))
             //利用$router.push进行跳转        
             this.$router.push({
                 //path后面跟跳转的路由地址
@@ -50,11 +51,7 @@ export default {
                     singerId: id
                 }
             })
-
         }
-    },
-    created() {
-        // console.log("palylist:" + singerList)
     },
 
 }
@@ -71,14 +68,22 @@ export default {
 
 .container {
     // width: 100vh;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     background: linear-gradient(200deg, #e2e2e5, #e2e2e0);
 }
 
-.play-list-out {
-    width: 980px;
+.container::before {
+    content: "";
+    display: table;
 }
+
+.play-list-out {
+    width: 80%;
+    margin-top: 20px;
+}
+
+
 
 .play-list {
     padding: 0 1rem;
@@ -87,9 +92,7 @@ export default {
     float: right;
     right: 20%;
     top: 20px;
-    // justify-content: center;
-    // align-items: center;
-    // border: 1px solid red;
+    border-radius: 30px;
     background: rgba(255, 255, 255, .3);
     box-shadow: 0 12px 45px #b7b6b6;
 

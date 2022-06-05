@@ -1,5 +1,6 @@
 <template>
-    <PlayList :singer-list="singerList"></PlayList>
+    <!-- <PlayList :singer-list="singerList"></PlayList> -->
+    <PlayList></PlayList>
 </template>
 
 <script>
@@ -11,22 +12,24 @@ export default {
     name: 'Singer',
     data() {
         return {
-            singerList: [],
+            // singerList: [],
         }
     },
     created() {
-        let _this = this;
-        request.get('/singer/').then(res => {
-            if (res.code === '200') {
-                _this.singerList = res.data
-                // console.log(_this.singerList)
-            } else {
-                this.$message.error(res.msg)
-            }
-        }).catch(error => {
-            this.$message.error(error.msg)
-        })
-    },
+        if (localStorage.getItem("singerList") == null) {
+            let _this = this;
+            request.get('/singer/').then(res => {
+                if (res.code === '200') {
+                    // _this.singerList = res.data
+                    localStorage.setItem('singerList', JSON.stringify(res.data)); // 存储用户信息到浏览器
+                } else {
+                    this.$message.error(res.msg)
+                }
+            }).catch(error => {
+                this.$message.error(error.msg)
+            })
+        }
+    }
 }
 </script>
 
