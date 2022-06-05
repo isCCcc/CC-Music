@@ -1,0 +1,28 @@
+#spring:
+#  profiles:
+#    active: dev
+server:
+  port: 8081
+
+spring:
+  datasource:
+    username: root
+    password: 456dcr
+    url: jdbc:mysql://localhost:3306/tp_music?useSSL=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+#mybatis:
+#  mapper-locations: classpath:mapping/*Mapper.xml
+#  type-aliases-package: com.cc.entity
+
+#showSql
+#logging:
+#  level:
+#    com:
+#      example:
+#        mapper : debug
