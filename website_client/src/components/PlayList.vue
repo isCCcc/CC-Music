@@ -27,14 +27,6 @@ export default {
             singerList: JSON.parse(localStorage.getItem('singerList')),
         }
     },
-    // props: {
-    // singerList: {
-    //     type: Array,
-    //     default: function () {
-    //         return []
-    //     }
-    // }
-    // },
     methods: {
         attachImageUrl(url) {
             return require("@/assets" + url)
@@ -70,7 +62,7 @@ export default {
     // width: 100vh;
     width: 100vw;
     height: 100%;
-    background: linear-gradient(200deg, #e2e2e5, #e2e2e0);
+    background: linear-gradient(90deg, #a7b59c, #d3d5c7);
 }
 
 .container::before {
@@ -93,8 +85,8 @@ export default {
     right: 20%;
     top: 20px;
     border-radius: 30px;
-    background: rgba(255, 255, 255, .3);
-    box-shadow: 0 12px 45px #b7b6b6;
+    background: rgba(255, 255, 255, .6);
+    box-shadow: 0 12px 45px #4b4747;
 
     .play-title {
         height: 60px;

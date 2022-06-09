@@ -2,6 +2,7 @@
     <div>
 
         <Head></Head>
+
         <!-- 歌单显示区域 -->
         <router-view></router-view>
         <Player></Player>

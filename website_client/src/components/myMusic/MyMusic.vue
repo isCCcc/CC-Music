@@ -44,8 +44,7 @@
                     </table>
                 </div>
             </div>
-            <audio src="@/assets/song/IU-Someday.mp3" controls="controls" ref="audio_music"
-                style="display:none"></audio>
+
         </div>
     </div>
 
@@ -59,9 +58,14 @@ export default {
         return {
             song_info: [],
             isplay: false,
+            nowIndex: '',
         }
     },
     methods: {
+        // 获取歌曲资源路径
+        getSongUrl(url) {
+            return require('@/assets' + url);
+        },
         // 我的歌单-取消收藏
         editCollection(id) {
             const _this = this
@@ -79,15 +83,34 @@ export default {
 
             })
         },
+        // // 播放 / 暂停 音乐
+        // music(play, index) {
+        //     this.nowIndex = index;
+        //     this.$store.commit('player/PLAYERINDEX', index);
+        //     this.$bus.$emit("playMusic");
+        //     if (play) { // 暂停音乐
+        //         this.$store.commit('player/ISPLAY', false)
+        //         this.$refs.song_list[index].classList.add('glyphicon-play');
+        //         this.$refs.song_list[index].classList.remove('glyphicon-pause');
+        //     } else { // 播放音乐
+        //         this.$store.commit('player/ISPLAY', true)
+        //         this.$refs.song_list[index].classList.add('glyphicon-pause');
+        //         this.$refs.song_list[index].classList.remove('glyphicon-play');
+        //     }
+        // },
         // 播放 / 暂停 音乐
         music(play, index) {
+            this.nowIndex = index;
+            this.$store.commit('player/ISPLAY', play);
+            this.$store.commit('player/PLAYERINDEX', index);
+            this.$bus.$emit("playMusic");
             if (play) { // 暂停音乐
-                this.$refs.audio_music.pause();
+                // this.$refs.audio_music.pause();
                 this.isplay = false;
                 this.$refs.music_play[index].classList.add('glyphicon-play');
                 this.$refs.music_play[index].classList.remove('glyphicon-pause');
             } else { // 播放音乐
-                this.$refs.audio_music.play();
+                // this.$refs.audio_music.play();
                 this.isplay = true;
                 this.$refs.music_play[index].classList.add('glyphicon-pause');
                 this.$refs.music_play[index].classList.remove('glyphicon-play');
@@ -97,10 +120,38 @@ export default {
     // 我的歌单-展示全部歌单信息
     created() {
         const _this = this
-        axios.get('http://localhost:8081/collection/displayall').then(function (resp) {
-            _this.song_info = resp.data;
-            // console.log(resp.data)
+        axios.get('http://localhost:8081/collection/displayall').then(function (res) {
+            _this.song_info = res.data;
+            localStorage.setItem("myMusicList", JSON.stringify(res.data)); // 将歌曲存储于浏览器
+            console.log(res.data);
+            // this.$store.commit('player/', res.);
         })
+    },
+    mounted() {
+        // player组件被点击时，本组件同步暂停和播放
+        this.$bus.$on("songListNextPlay", (newIndex) => {
+            if (this.$refs.music_play[this.nowIndex].classList.contains('glyphicon-pause')) {
+                this.$refs.music_play[this.nowIndex].classList.remove('glyphicon-pause');
+                this.$refs.music_play[this.nowIndex].classList.add('glyphicon-play');
+            }
+            this.music(false, newIndex)
+
+        })
+        this.$bus.$on("songListPlay", (isPlay, newIndex) => {
+            if (isPlay) {
+                if (this.$refs.music_play[newIndex].classList.contains('glyphicon-pause')) {
+                    this.$refs.music_play[newIndex].classList.add('glyphicon-play');
+                    this.$refs.music_play[newIndex].classList.remove('glyphicon-pause');
+                }
+            } else {
+                this.$refs.music_play[newIndex].classList.remove('glyphicon-play');
+                this.$refs.music_play[newIndex].classList.add('glyphicon-pause');
+            }
+        })
+    },
+    beforeDestroy() {
+        this.$bus.$off("songListNextPlay")
+        this.$bus.$off("songListPlay")
     },
 
 
@@ -126,7 +177,7 @@ th {
 
 .out-display {
     height: 100vh;
-    background: linear-gradient(200deg, #e2e2e5, #e2e2e0);
+    background: linear-gradient(90deg, #a7b59c, #d3d5c7);
 }
 
 .out-display::before {
@@ -138,8 +189,8 @@ th {
     width: 80%;
     margin-top: 20px;
     border-radius: 30px;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 12px 45px #b7b6b6;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 45px #454343;
 }
 
 .page-header {

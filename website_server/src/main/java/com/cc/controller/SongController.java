@@ -42,7 +42,7 @@ public class SongController {
     // 添加歌曲到收藏
     @PostMapping("/addToCollection")
     public Result addToCollection(@RequestParam int uid,@RequestParam String sname,
-                                  @RequestParam int ssinger,@RequestParam String salbum){
+                                  @RequestParam int ssinger,@RequestParam String salbum,@RequestParam String surl){
         QueryWrapper<Singer> singer = new QueryWrapper<>();
         Singer s = singerService.getOne(singer.eq("id", ssinger));
 
@@ -51,6 +51,7 @@ public class SongController {
         collection.setSongName(sname);
         collection.setSongSinger(s.getName());
         collection.setSongAlbum(salbum);
+        collection.setSongUrl(surl);
         collectionService.save(collection);
         return Result.success(collection);
     }

@@ -2,6 +2,7 @@ package com.cc.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cc.entity.Collection;
+import com.cc.entity.Song;
 import com.cc.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

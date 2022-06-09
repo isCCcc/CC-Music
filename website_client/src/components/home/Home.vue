@@ -9,8 +9,7 @@
             </el-carousel>
         </div>
         <!-- 歌单显示区域 -->
-        <!-- <router-view></router-view> -->
-        <SongList :songList="songList"></SongList>
+        <SongList></SongList>
     </div>
 </template>
 
@@ -19,10 +18,10 @@ import Head from '@/views/Head';
 import SongList from './SongList.vue';
 export default {
     name: 'Home',
-    components: { Head, SongList, SongList },
+    components: { Head, SongList, SongList, SongList },
     data() {
         return {
-            songList: JSON.parse(localStorage.getItem('songList')),
+            // songList: JSON.parse(localStorage.getItem('songList')),
             imgList: [
                 // 动态引入图片资源
                 { id: 0, idView: require("@/assets/img/home/1.jpg") },
@@ -34,13 +33,13 @@ export default {
             ]
         }
     },
-    created() {
-        // console.log(JSON.parse(localStorage.getItem('songList')))
-    }
+    mounted() {
+        this.$store.dispatch('song/getAllSongList');
+    },
 }
 </script>
 
-<style>
+<style scoped>
 .el-carousel__item img {
     height: 100%;
 }
@@ -54,8 +53,12 @@ export default {
 }
 
 .home {
-    background: linear-gradient(200deg, #afafb3, #afafb3);
-    box-shadow: 0 12px 45px #b7b6b6;
+    background: linear-gradient(90deg, #d3d5c7, #a7b59c);
+    /* background: linear-gradient(200deg, #afafb3, #afafb3); */
+    /* background-color: #d3d5d7; */
+    /* opacity: .5; */
+    box-shadow: 0 12px 45px #161616;
+    /* border: 1px solid #fff; */
     /* border: 1px solid #99a9bf; */
 }
 </style>

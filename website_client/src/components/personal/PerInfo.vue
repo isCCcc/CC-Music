@@ -121,7 +121,7 @@ i {
     width: 100vw;
     min-height: 100vh;
     position: relative;
-    background: linear-gradient(200deg, #e2e2e5, #e2e2e0);
+    background: linear-gradient(90deg, #a7b59c, #d3d5c7);
 }
 
 .container-perInfo {
@@ -132,7 +132,7 @@ i {
     left: 50%;
     top: 50%;
     border-radius: 30px;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 12px 45px #b7b6b6;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 45px #5a5858;
 }
 </style>

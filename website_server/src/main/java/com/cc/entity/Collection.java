@@ -40,6 +40,11 @@ public class Collection implements Serializable {
      */
     private String songAlbum;
 
+    /**
+     * 
+     */
+    private String songUrl;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -59,7 +64,8 @@ public class Collection implements Serializable {
             && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getSongName() == null ? other.getSongName() == null : this.getSongName().equals(other.getSongName()))
             && (this.getSongSinger() == null ? other.getSongSinger() == null : this.getSongSinger().equals(other.getSongSinger()))
-            && (this.getSongAlbum() == null ? other.getSongAlbum() == null : this.getSongAlbum().equals(other.getSongAlbum()));
+            && (this.getSongAlbum() == null ? other.getSongAlbum() == null : this.getSongAlbum().equals(other.getSongAlbum()))
+            && (this.getSongUrl() == null ? other.getSongUrl() == null : this.getSongUrl().equals(other.getSongUrl()));
     }
 
     @Override
@@ -71,6 +77,7 @@ public class Collection implements Serializable {
         result = prime * result + ((getSongName() == null) ? 0 : getSongName().hashCode());
         result = prime * result + ((getSongSinger() == null) ? 0 : getSongSinger().hashCode());
         result = prime * result + ((getSongAlbum() == null) ? 0 : getSongAlbum().hashCode());
+        result = prime * result + ((getSongUrl() == null) ? 0 : getSongUrl().hashCode());
         return result;
     }
 
@@ -85,6 +92,7 @@ public class Collection implements Serializable {
         sb.append(", songName=").append(songName);
         sb.append(", songSinger=").append(songSinger);
         sb.append(", songAlbum=").append(songAlbum);
+        sb.append(", songUrl=").append(songUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -20,6 +20,9 @@ Vue.config.productionTip = false
 // Vue.prototype.$axios = axios
 
 new Vue({
+  beforeCreate() {
+    Vue.prototype.$bus = this //安装全局事件总线，$bus就是当前应用的vm
+  },
   // axios,
   router,
   store,

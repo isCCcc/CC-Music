@@ -10,10 +10,11 @@
             <result property="songName" column="song_name" jdbcType="VARCHAR"/>
             <result property="songSinger" column="song_singer" jdbcType="VARCHAR"/>
             <result property="songAlbum" column="song_album" jdbcType="VARCHAR"/>
+            <result property="songUrl" column="song_url" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,user_id,song_name,
-        song_singer,song_album
+        song_singer,song_album,song_url
     </sql>
 </mapper>

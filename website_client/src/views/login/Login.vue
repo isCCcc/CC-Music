@@ -24,7 +24,7 @@
             <div class="con-box left">
                 <h2><span>C - Music</span></h2>
                 <p>快来领取你的专属<span>音乐</span>吧</p>
-                <img src="@/assets/img/login/3.png" alt="">
+                <img src="@/assets/img/login/logo.png" alt="">
                 <p>已有账号</p>
                 <button id="login" @click="goLogin">去登录</button>
             </div>
@@ -32,7 +32,7 @@
             <div class="con-box right">
                 <h2><span>C - Music</span></h2>
                 <p>快来领取你的专属<span>音乐</span>吧</p>
-                <img src="@/assets/img/login/3.png" alt="">
+                <img src="@/assets/img/login/6.png" alt="">
                 <p>没有账号</p>
                 <button id="register" @click="goRegister">去注册</button>
             </div>
@@ -167,23 +167,22 @@ export default {
 }
 
 .body {
-    /* !vh??? 100%窗口高度 */
+    /* 100%窗口高度 */
     height: 100vh;
-    /* !弹性布局 水平+垂直居中 */
+    /* 弹性布局 水平+垂直居中 */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* 渐变色背景 渐变线的角度为200° / 即从右上角往左下角渐变 */
-    background: linear-gradient(200deg, #e2e2e5, #c2c2c0);
-    /* background: linear-gradient(200deg, #69696b, black); */
+    background: linear-gradient(90deg, #d3d5c7, #a7b59c);
+
 }
 
 .container {
-    background-color: #fff;
     width: 650px;
     height: 415px;
     border-radius: 5px;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, .1);
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
     position: relative;
 }
 
@@ -192,11 +191,12 @@ export default {
     position: absolute;
     top: -10%;
     left: 5%;
-    background-color: rgb(107, 109, 116);
+    /* background-color: rgb(107, 109, 116); */
+    background-color: #51603f;
     width: 320px;
     height: 500px;
     border-radius: 5px;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, .1);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, .5);
     /* box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 40px 16px; */
     display: flex;
     justify-content: center;
@@ -277,7 +277,7 @@ input:focus::placeholder {
 }
 
 .form-box button:hover {
-    background-color: #333;
+    background-color: #7d826e;
     color: #f6f6f6;
     transition: background-color 0.5s ease;
 }
@@ -319,7 +319,7 @@ input:focus::placeholder {
 }
 
 .con-box span {
-    color: #706677;
+    color: #48726d;
 }
 
 .con-box img {
@@ -343,8 +343,7 @@ input:focus::placeholder {
 
 .con-box button:hover {
     /* background-color: #d3b7d8; */
-    background-color: #e2e2e5;
-
-    /* color: #fff; */
+    background-color: #7d826e;
+    color: #fff;
 }
 </style>

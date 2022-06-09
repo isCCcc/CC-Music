@@ -24,19 +24,16 @@
                         </thead>
 
                         <tbody>
-                            <tr v-for="(song, index) in (newSongList || songList)" :key="song.id">
+                            <tr v-for="(song, index) in songList" :key="song.id">
                                 <td>{{ index + 1 }}</td>
                                 <td>
-                                    <i class="glyphicon glyphicon-play" :plain="true" @click="music(isplay, index)"
+                                    <i class="glyphicon glyphicon-play" :plain="true" @click="music(isPlay, index)"
                                         ref="song_list"></i>
                                 </td>
                                 <td>{{ song.name }}</td>
                                 <td>{{ song.introduction }}</td>
                                 <td><i class="glyphicon glyphicon-star-empty" @click="collect(iscollect, index)"
                                         ref="collect_music" style="font-size:20px"></i></td>
-
-                                <audio :src="getSongUrl(song.url)" controls="controls" ref="audio_music"
-                                    style="display:none"></audio>
                             </tr>
                         </tbody>
                     </table>
@@ -49,54 +46,38 @@
 
 <script>
 import request from "@/util/request";
+import { mapState } from "vuex";
 export default {
     inject: ['reload'],
     name: 'SongList',
-    props: {
-        songList: {
-            type: Array,
-            // default: function () { return [] }
-            default: () => []
-        },
-    },
     data() {
         return {
-            newSongList: [],
-            // songList: [],
-            isplay: false, // 歌曲播放
+            nowIndex: '',
             iscollect: false, // 收藏歌曲
         }
     },
+    computed: {
+        ...mapState('song', ['songList']),
+        ...mapState('player', ['isPlay']),
+    },
     methods: {
-        //获取歌曲地址
-        getSongUrl(url) {
-            return require('@/assets' + url);
-        },
         // 播放 / 暂停 音乐
         music(play, index) {
+            this.nowIndex = index;
+            this.$store.commit('player/PLAYERINDEX', index);
+            this.$bus.$emit("playMusic");
             if (play) { // 暂停音乐
-                this.$refs.audio_music[index].pause();
-                this.isplay = false;
+                this.$store.commit('player/ISPLAY', false)
                 this.$refs.song_list[index].classList.add('glyphicon-play');
                 this.$refs.song_list[index].classList.remove('glyphicon-pause');
             } else { // 播放音乐
-                this.$refs.audio_music[index].play();
-                this.isplay = true;
+                this.$store.commit('player/ISPLAY', true)
                 this.$refs.song_list[index].classList.add('glyphicon-pause');
                 this.$refs.song_list[index].classList.remove('glyphicon-play');
             }
         },
         // 收藏歌曲
         collect(iscollect, index) {
-            if (this.newSongList) {//判断是否从head跳过来
-                console.log(this.newSongList)
-                console.log("from head")
-                // this.newSongList = songList
-            } else {
-                console.log("not from head")
-                this.newSongList = this.songList
-            }
-
             let _this = this
             if (iscollect) {
                 this.$refs.collect_music[index].classList.remove('glyphicon-star');
@@ -104,7 +85,7 @@ export default {
                 this.iscollect = false;
                 request.post('/song/deleteFromCollection', null, {
                     params: {
-                        sname: _this.newSongList[index].name,
+                        sname: _this.songList[index].name,
                     }
                 }).then(res => {
                     if (res.code === '200') {
@@ -121,13 +102,13 @@ export default {
                 this.$refs.collect_music[index].classList.remove('glyphicon-star-empty');
                 this.$refs.collect_music[index].classList.add('glyphicon-star');
                 this.iscollect = true;
-                console.log(this.newSongList[index])
                 request.post('/song/addToCollection', null, {
                     params: {
                         uid: JSON.parse(localStorage.getItem('user')).uid,
-                        sname: _this.newSongList[index].name,
-                        ssinger: _this.newSongList[index].singerId,
-                        salbum: _this.newSongList[index].introduction,
+                        sname: _this.songList[index].name,
+                        ssinger: _this.songList[index].singerId,
+                        salbum: _this.songList[index].introduction,
+                        surl: _this.songList[index].url
                     }
                 }).then(res => {
                     if (res.code === '200') {
@@ -142,9 +123,31 @@ export default {
         }
 
     },
-    created() {
-        //接收 Head 传过来的参数
-        this.newSongList = this.$route.params.songList
+    mounted() {
+        // player组件被点击时，本组件同步暂停和播放
+        this.$bus.$on("songListNextPlay", (newIndex) => {
+            if (this.$refs.song_list[this.nowIndex].classList.contains('glyphicon-pause')) {
+                this.$refs.song_list[this.nowIndex].classList.remove('glyphicon-pause');
+                this.$refs.song_list[this.nowIndex].classList.add('glyphicon-play');
+            }
+            this.music(false, newIndex)
+
+        })
+        this.$bus.$on("songListPlay", (isPlay, newIndex) => {
+            if (isPlay) {
+                if (this.$refs.song_list[newIndex].classList.contains('glyphicon-pause')) {
+                    this.$refs.song_list[newIndex].classList.add('glyphicon-play');
+                    this.$refs.song_list[newIndex].classList.remove('glyphicon-pause');
+                }
+            } else {
+                this.$refs.song_list[newIndex].classList.remove('glyphicon-play');
+                this.$refs.song_list[newIndex].classList.add('glyphicon-pause');
+            }
+        })
+    },
+    beforeDestroy() {
+        this.$bus.$off("songListPlay");
+        this.$bus.$off("songListNextPlay");
     },
 }
 </script>
@@ -152,7 +155,8 @@ export default {
 <style scoped>
 .out-display {
     min-height: 100vh;
-    background: linear-gradient(200deg, #e2e2e5, #e2e2e0);
+    background: linear-gradient(90deg, #a7b59c, #d3d5c7);
+    /* background-color: #; */
 }
 
 .out-display::before {
@@ -168,7 +172,7 @@ export default {
     margin-top: 20px;
     border-radius: 30px;
     background-color: #fff;
-    box-shadow: 0 12px 45px #b7b6b6;
+    box-shadow: 0 12px 45px #332929;
 }
 
 td,
