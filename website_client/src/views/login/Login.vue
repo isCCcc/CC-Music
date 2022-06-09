@@ -32,7 +32,7 @@
             <div class="con-box right">
                 <h2><span>C - Music</span></h2>
                 <p>快来领取你的专属<span>音乐</span>吧</p>
-                <img src="@/assets/img/login/6.png" alt="">
+                <img src="@/assets/img/login/logo.png" alt="">
                 <p>没有账号</p>
                 <button id="register" @click="goRegister">去注册</button>
             </div>
