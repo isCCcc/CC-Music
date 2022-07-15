@@ -1,5 +1,5 @@
 # CC-Music
-一个基于springboot+vue的音乐网站（后续会不断更新提交）
+一个基于springboot+vue的音乐网站
 
 前端使用技术：
 vue、vuex、vue-router、elementui、bootstrap；
